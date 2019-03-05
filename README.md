@@ -30,7 +30,7 @@ Gray: #424143
 
 Light Gray: #999999
 
-**Instructions:**
+**Instructions**
 
 Build a mortage calculator using the last version of create-react-app based off the design shown below:
 
@@ -59,12 +59,9 @@ Build a mortage calculator using the last version of create-react-app based off 
   `Y is the number of payments`
 
   
-
   
 
-  
-
-  **Example:**
+  **Example**
 
   Suppose you take out a 30 year mortgage for $100,000 at 7% interest, and want to know the *monthly* payments. To do that, you divide the interest rate by 12 to get (.07/12) = .00583; and multiply 30 x 12 = 360 to get the number of payments. Then the formula gives you:
 

@@ -8,13 +8,16 @@ A mortgage is a loan used to purchase a home or property. When a borrower pays b
 
 For our property portal, [www.propertysimple.com](http://www.propertysimple.com), we’d like to show potential home buyers the price they could pay per month to own a home. The mortgage calculator should accept a dollar amount and automatically calculate an expected monthly payment for the mortgage of that property. A good example of a mortgage calculator can be found at [www.zillow.com](http://www.zillow.com) on any of their properties. 
 
+
 **Design** 
 
 Please follow the PropertySimple style guide by using our corporate colors and typography.
 
+
 **Typography**
 
 Open Sans or Arial 
+
 
 **Colors**
 
@@ -30,11 +33,13 @@ Gray: #424143
 
 Light Gray: #999999
 
+
 **Instructions**
 
 Build a mortage calculator using the last version of create-react-app based off the design shown below:
 
 ![](https://scontent.xx.fbcdn.net/v/t1.15752-0/p280x280/53545867_298015887558905_6873721928884944896_n.png?_nc_cat=100&_nc_ad=z-m&_nc_cid=0&_nc_zor=9&_nc_ht=scontent.xx&oh=fbd9989bbc0311dce758b1c84871a307&oe=5D1E72CE)
+
 
 **Requirements**
 

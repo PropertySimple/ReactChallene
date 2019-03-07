@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
+import styled from 'styled-components'
+
+const Container = styled.div`
+  text-align: center;
+`;
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-      </div>
+      <Container>
+        <h2>Affordability</h2>
+      </Container>
     );
   }
 }

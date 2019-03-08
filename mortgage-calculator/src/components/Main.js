@@ -15,7 +15,7 @@ export default class extends Component {
   render() {
     return (
       <Main>
-        <PieChart />
+        <PieChart principalAndInterest={1000} pmi={120} />
         <Inputs>Inputs</Inputs>
       </Main>
     );

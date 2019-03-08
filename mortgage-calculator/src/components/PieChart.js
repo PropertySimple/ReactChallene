@@ -11,6 +11,7 @@ const PieChart = styled.div`
 `;
 
 const MonthlyPayment = styled.h1`
+  margin-top: 15px;
   margin-bottom: 0;
 `;
 

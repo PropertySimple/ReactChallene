@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
+import Header from '../Header.js';
 
 const Container = styled.div`
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 20px;
+  width: 70%;
 `;
 
-class App extends Component {
+export default class extends Component {
   render() {
     return (
       <Container>
-        <h2>Affordability</h2>
+        <Header />
+        <div>Main</div>
       </Container>
     );
   }
 }
-
-export default App;

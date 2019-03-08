@@ -6,7 +6,7 @@ const Container = styled.div`
   flex-direction: column;
   margin: auto;
   padding: 20px;
-  width: 70%;
+  width: 80%;
 `;
 
 export default class extends Component {

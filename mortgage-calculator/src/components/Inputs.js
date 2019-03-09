@@ -40,9 +40,6 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
     width: 180,
   },
-  dense: {
-    marginTop: 19,
-  },
   menu: {
     width: 180,
   },
@@ -77,7 +74,9 @@ class Inputs extends Component {
       pmi: 155,
       price: 0,
       down: 0,
+      downPercentage: 0,
       years: 30,
+      interest: 0,
     }
   }
 
@@ -87,9 +86,9 @@ class Inputs extends Component {
 
   render() {
     const { classes } = this.props;
-    const { principalAndInterest, price, down } = this.state;
+    const { principalAndInterest, price, down, downPercentage, years, interest } = this.state;
 
-    const years = [
+    const yearsOptions = [
       {
         value: 30,
         label: '30-year fixed',
@@ -135,31 +134,41 @@ class Inputs extends Component {
           <TextField
             label=" "
             className={classes.textField}
-            value={this.state.name}
-            onChange={this.handleChange('name')}
+            value={downPercentage}
+            onChange={this.handleChange('downPercentage')}
             margin="normal"
           />
         </Row>
 
-        <TextField
-          select
-          label="Loan Details"
-          className={classes.textField}
-          value={this.state.years}
-          onChange={this.handleChange('years')}
-          SelectProps={{
-            MenuProps: {
-              className: classes.menu,
-            },
-          }}
-          margin="normal"
-        >
-          {years.map(option => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+        <Row>
+          <TextField
+            select
+            label="Loan Details"
+            className={classes.textField}
+            value={years}
+            onChange={this.handleChange('years')}
+            SelectProps={{
+              MenuProps: {
+                className: classes.menu,
+              },
+            }}
+            margin="normal"
+          >
+            {yearsOptions.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            label=" "
+            className={classes.textField}
+            value={interest}
+            onChange={this.handleChange('interest')}
+            margin="normal"
+          />
+        </Row>
+        
 
         <Row title><Circle color="#ffcb1f" /><Title>{"Include PMI"}</Title></Row>
       </Form>

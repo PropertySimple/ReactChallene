@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
+import { withStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
-const Inputs = styled.div`
+const Form = styled.form`
   display: flex;
   flex-grow: 2;
   flex-direction: column;
@@ -9,8 +12,7 @@ const Inputs = styled.div`
 
 const Row = styled.div`
   display: flex;
-  margin: 15px 0;
-  height: 45px;
+  margin-top: ${props => props.title ? '15px' : '0'};
 `;
 
 const Circle = styled.span`
@@ -27,25 +29,110 @@ const Title = styled.h4`
   margin-left: ${props => props.price ? "100px" : "0"};
 `;
 
-export default class extends Component {
+const styles = theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: '40px',
+    marginRight: theme.spacing.unit,
+    width: 180,
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 180,
+  },
+});
+
+class Inputs extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       principalAndInterest: 1000,
       pmi: 155,
+      price: 0,
+      down: 0,
+      years: 30,
     }
   }
 
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.value });
+  };
+
   render() {
+    const { classes } = this.props;
+
+    const years = [
+      {
+        value: 30,
+        label: '30-year fixed',
+      },
+      {
+        value: 15,
+        label: '15-year fixed',
+      },
+    ];
+
     return (
-      <Inputs>
-        <Row><Circle color="#ff3867" /><Title>{"Principal & Interest"}</Title><Title price>{`$${this.state.principalAndInterest}/mo`}</Title></Row>
-        <Row>{"Home Price"}</Row>
-        <Row>{"Down Payment"}</Row>
-        <Row>{"Loan Details"}</Row>
-        <Row><Circle color="#ffcb1f" /><Title>{"Include PMI"}</Title></Row>
-      </Inputs>
+      <Form className={classes.container} noValidate autoComplete="off">
+        <Row title><Circle color="#ff3867" /><Title>{"Principal & Interest"}</Title><Title price>{`$${this.state.principalAndInterest}/mo`}</Title></Row>
+
+        <Row>
+          <TextField
+            label="Home Price"
+            className={classes.textField}
+            value={this.state.price}
+            onChange={this.handleChange('price')}
+            margin="normal"
+          />
+        </Row>
+        
+        <Row>
+          <TextField
+            label="Down Payment"
+            className={classes.textField}
+            value={this.state.down}
+            onChange={this.handleChange('down')}
+            margin="normal"
+          />
+          <TextField
+            label=" "
+            className={classes.textField}
+            value={this.state.name}
+            onChange={this.handleChange('name')}
+            margin="normal"
+          />
+        </Row>
+
+        <TextField
+          select
+          label="Loan Details"
+          className={classes.textField}
+          value={this.state.years}
+          onChange={this.handleChange('years')}
+          SelectProps={{
+            MenuProps: {
+              className: classes.menu,
+            },
+          }}
+          margin="normal"
+        >
+          {years.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+
+        <Row title><Circle color="#ffcb1f" /><Title>{"Include PMI"}</Title></Row>
+      </Form>
     );
   }
 }
+
+export default withStyles(styles)(Inputs);

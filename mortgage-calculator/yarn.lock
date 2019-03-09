@@ -8400,6 +8400,13 @@ react-motion@^0.5.2:
     prop-types "^15.5.8"
     raf "^3.1.0"
 
+react-number-format@^4.0.6:
+  version "4.0.6"
+  resolved "https://registry.yarnpkg.com/react-number-format/-/react-number-format-4.0.6.tgz#3cdfc48f5fc106edb3cf1d767d320348aa857f6a"
+  integrity sha512-WfBlqYRD0fGZpQxRy1apxsPeaqtxhzo7CnUVFKBoGDsQbc89+DQNhjG/D3IxgGYM47oKB+W/Su9ol/vVS6Wc2Q==
+  dependencies:
+    prop-types "^15.6.0"
+
 react-scripts@2.1.8:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-2.1.8.tgz#21195bb928b2c0462aa98b2d32edf7d034cff2a9"

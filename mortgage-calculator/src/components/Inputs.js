@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import NumberFormat from 'react-number-format';
+import InputAdornment from '@material-ui/core/InputAdornment';
 
 const Form = styled.form`
   display: flex;
@@ -38,10 +39,15 @@ const styles = theme => ({
   textField: {
     marginLeft: '40px',
     marginRight: theme.spacing.unit,
-    width: 180,
+    width: 200,
+  },
+  percentage: {
+    marginLeft: '40px',
+    marginRight: theme.spacing.unit,
+    width: 120,
   },
   menu: {
-    width: 180,
+    width: 200,
   },
 });
 
@@ -133,10 +139,13 @@ class Inputs extends Component {
           />
           <TextField
             label=" "
-            className={classes.textField}
+            className={classes.percentage}
             value={downPercentage}
             onChange={this.handleChange('downPercentage')}
             margin="normal"
+            InputProps={{
+              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+            }}
           />
         </Row>
 
@@ -162,13 +171,15 @@ class Inputs extends Component {
           </TextField>
           <TextField
             label=" "
-            className={classes.textField}
+            className={classes.percentage}
             value={interest}
             onChange={this.handleChange('interest')}
             margin="normal"
+            InputProps={{
+              endAdornment: <InputAdornment position="end">%</InputAdornment>,
+            }}
           />
         </Row>
-        
 
         <Row title><Circle color="#ffcb1f" /><Title>{"Include PMI"}</Title></Row>
       </Form>

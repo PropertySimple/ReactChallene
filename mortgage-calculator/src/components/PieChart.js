@@ -27,12 +27,12 @@ export default class extends Component {
       {
         angle: 300, 
         label: 'P&I', 
-        subLabel: <NumberFormat value={this.props.principalAndInterest} displayType={'text'} thousandSeparator={true} prefix={'$ '} renderText={value => value} />,
+        subLabel: <NumberFormat value={this.props.principalAndInterest} displayType={'text'} thousandSeparator={true} prefix={'$'} renderText={value => value} />,
         color:'#ff3867'}, 
       {
         angle: 60, 
         label: 'PMI', 
-        subLabel: <NumberFormat value={this.props.pmi} displayType={'text'} thousandSeparator={true} prefix={'$ '} renderText={value => value} />,
+        subLabel: <NumberFormat value={this.props.pmi} displayType={'text'} thousandSeparator={true} prefix={'$'} renderText={value => value} />,
         color:'#ffcb1f'
       }
     ];
@@ -40,7 +40,7 @@ export default class extends Component {
     return (
       <PieChart>
         <MonthlyPayment>
-          <NumberFormat value={this.props.principalAndInterest + this.props.pmi} displayType={'text'} thousandSeparator={true} prefix={'$ '} />
+          <NumberFormat value={this.props.principalAndInterest + this.props.pmi} displayType={'text'} thousandSeparator={true} prefix={'$'} />
         </MonthlyPayment>
         <Title>Monthly Payment</Title>
         <RadialChart

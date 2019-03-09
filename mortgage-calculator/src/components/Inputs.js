@@ -151,6 +151,22 @@ class Inputs extends Component {
     });
   };
   
+  handleDownChange = name => event => {
+    const downPercentage = Math.round(100 * event.target.value / this.state.price);
+
+    this.setState({ [name]: event.target.value, downPercentage }, () => {
+      this.updateMonthlyPayment();
+    });
+  };
+
+  handleDownPercentageChange = name => event => {
+    const down = Math.round(this.state.price * event.target.value / 100);
+
+    this.setState({ [name]: event.target.value, down }, () => {
+      this.updateMonthlyPayment();
+    });
+  };
+
   handleYearsChange = name => event => {
     const yearsOption = this.yearsOptions.find((option) => {
       return option.value === event.target.value;
@@ -199,7 +215,7 @@ class Inputs extends Component {
             label="Down Payment"
             className={classes.textField}
             value={down}
-            onChange={this.handleChange('down')}
+            onChange={this.handleDownChange('down')}
             InputProps={{
               inputComponent: PriceFormatCustom,
             }}
@@ -209,7 +225,7 @@ class Inputs extends Component {
             label=" "
             className={classes.percentage}
             value={downPercentage}
-            onChange={this.handleChange('downPercentage')}
+            onChange={this.handleDownPercentageChange('downPercentage')}
             margin="normal"
             InputProps={{
               inputComponent: PercentageFormatCustom,

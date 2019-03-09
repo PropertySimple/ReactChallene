@@ -10,6 +10,16 @@ const PieChart = styled.div`
   text-align: center;
   align-items: center;
   width: 400px;
+
+  text {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  text:nth-child(odd) {
+    fill: #999999;
+    transform: translate(0, -4px);
+  }
 `;
 
 const MonthlyPayment = styled.h1`

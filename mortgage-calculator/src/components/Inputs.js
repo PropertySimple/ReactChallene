@@ -153,7 +153,7 @@ class Inputs extends Component {
   };
   
   handleDownChange = name => event => {
-    const downPercentage = Math.round(100 * event.target.value / this.state.price);
+    const downPercentage = 100 * event.target.value / this.state.price;
 
     this.setState({ [name]: event.target.value, downPercentage }, () => {
       this.updateMonthlyPayment();
@@ -161,7 +161,7 @@ class Inputs extends Component {
   };
 
   handleDownPercentageChange = name => event => {
-    const down = Math.round(this.state.price * event.target.value / 100);
+    const down = this.state.price * event.target.value / 100;
 
     this.setState({ [name]: event.target.value, down }, () => {
       this.updateMonthlyPayment();
@@ -215,7 +215,7 @@ class Inputs extends Component {
           <TextField
             label="Down Payment"
             className={classes.textField}
-            value={down}
+            value={Math.round(down)}
             onChange={this.handleDownChange('down')}
             InputProps={{
               inputComponent: PriceFormatCustom,
@@ -225,8 +225,8 @@ class Inputs extends Component {
           <TextField
             label=" "
             className={classes.percentage}
-            value={downPercentage}
-            onChange={this.handleDownPercentageChange('downPercentage')}
+            value={Math.round(downPercentage)}
+            onInput={this.handleDownPercentageChange('downPercentage')}
             margin="normal"
             InputProps={{
               inputComponent: PercentageFormatCustom,

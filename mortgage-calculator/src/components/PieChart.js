@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components'
 import { RadialChart } from 'react-vis';
+import NumberFormat from 'react-number-format';
 
 const PieChart = styled.div`
   display: flex;
@@ -26,19 +27,21 @@ export default class extends Component {
       {
         angle: 300, 
         label: 'P&I', 
-        subLabel: `$${this.props.principalAndInterest}`, 
+        subLabel: <NumberFormat value={this.props.principalAndInterest} displayType={'text'} thousandSeparator={true} prefix={'$ '} renderText={value => value} />,
         color:'#ff3867'}, 
       {
         angle: 60, 
         label: 'PMI', 
-        subLabel: `$${this.props.pmi}`, 
+        subLabel: <NumberFormat value={this.props.pmi} displayType={'text'} thousandSeparator={true} prefix={'$ '} renderText={value => value} />,
         color:'#ffcb1f'
       }
     ];
 
     return (
       <PieChart>
-        <MonthlyPayment>${this.props.principalAndInterest + this.props.pmi}</MonthlyPayment>
+        <MonthlyPayment>
+          <NumberFormat value={this.props.principalAndInterest + this.props.pmi} displayType={'text'} thousandSeparator={true} prefix={'$ '} />
+        </MonthlyPayment>
         <Title>Monthly Payment</Title>
         <RadialChart
           data={values}

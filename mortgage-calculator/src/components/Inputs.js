@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
+import NumberFormat from 'react-number-format';
 
 const Form = styled.form`
   display: flex;
@@ -47,6 +48,26 @@ const styles = theme => ({
   },
 });
 
+function NumberFormatCustom(props) {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={values => {
+        onChange({
+          target: {
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      prefix="$ "
+    />
+  );
+}
+
 class Inputs extends Component {
   constructor(props) {
     super(props);
@@ -66,6 +87,7 @@ class Inputs extends Component {
 
   render() {
     const { classes } = this.props;
+    const { principalAndInterest, price, down } = this.state;
 
     const years = [
       {
@@ -80,14 +102,21 @@ class Inputs extends Component {
 
     return (
       <Form className={classes.container} noValidate autoComplete="off">
-        <Row title><Circle color="#ff3867" /><Title>{"Principal & Interest"}</Title><Title price>{`$${this.state.principalAndInterest}/mo`}</Title></Row>
+        <Row title>
+          <Circle color="#ff3867" />
+          <Title>{"Principal & Interest"}</Title>
+          <Title price><NumberFormat value={principalAndInterest} displayType={'text'} thousandSeparator={true} prefix={'$'} />{`/mo`}</Title>
+        </Row>
 
         <Row>
           <TextField
             label="Home Price"
             className={classes.textField}
-            value={this.state.price}
+            value={price}
             onChange={this.handleChange('price')}
+            InputProps={{
+              inputComponent: NumberFormatCustom,
+            }}
             margin="normal"
           />
         </Row>
@@ -96,8 +125,11 @@ class Inputs extends Component {
           <TextField
             label="Down Payment"
             className={classes.textField}
-            value={this.state.down}
+            value={down}
             onChange={this.handleChange('down')}
+            InputProps={{
+              inputComponent: NumberFormatCustom,
+            }}
             margin="normal"
           />
           <TextField

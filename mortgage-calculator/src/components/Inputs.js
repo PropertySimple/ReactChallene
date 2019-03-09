@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import NumberFormat from 'react-number-format';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import Switch from '@material-ui/core/Switch';
 
 const Form = styled.form`
   display: flex;
@@ -15,6 +16,7 @@ const Form = styled.form`
 const Row = styled.div`
   display: flex;
   margin-top: ${props => props.title ? '15px' : '0'};
+  align-items: center;
 `;
 
 const Circle = styled.span`
@@ -22,7 +24,7 @@ const Circle = styled.span`
   height: 20px;
   background: ${props => props.color ? props.color : '#ff3867'};
   border-radius: 50%;
-  margin-right: 20px;
+  margin-right: ${props => props.pmi ? '4px' : '20px'};
 `;
 
 const Title = styled.h4`
@@ -49,6 +51,17 @@ const styles = theme => ({
   menu: {
     width: 200,
   },
+  colorSwitchBase: {
+    color: 'white',
+    '&$colorChecked': {
+      color: '#ffcb1f',
+      '& + $colorBar': {
+        backgroundColor: '#ffcb1f',
+      },
+    },
+  },
+  colorBar: {},
+  colorChecked: {},
 });
 
 function PriceFormatCustom(props) {
@@ -94,28 +107,40 @@ class Inputs extends Component {
     super(props);
 
     this.state = {
-      principalAndInterest: 1000,
-      pmi: 155,
+      principalAndInterest: 0,
       price: 0,
       down: 0,
       downPercentage: 0,
       years: 30,
       interest: 4,
+      pmiChecked: false,
     }
+  }
+
+  updateMonthlyPayment = () => {
+    const { price, down, years, interest } = this.state;
+
+    const P = price - down;
+    const r = interest / 12 / 100;
+    const Y = 12 * years;
+
+    const principalAndInterest = Math.round(P * r * (Math.pow(1 + r, Y)) / (Math.pow(1 + r, Y) - 1));
+
+    const pmi = this.state.pmiChecked ? Math.round(P * 0.01 / 12) : 0;
+
+    this.setState({ principalAndInterest });
+    this.props.updateValues(principalAndInterest, pmi);
   }
 
   handleChange = name => event => {
     this.setState({ [name]: event.target.value }, () => {
-      const { price, down, years, interest } = this.state;
-
-      const P = price - down;
-      const r = interest / 12 / 100;
-      const Y = 12 * years;
-
-      const principalAndInterest = Math.round(P * r * (Math.pow(1 + r, Y)) / (Math.pow(1 + r, Y) - 1));
-
-      this.setState({ principalAndInterest });
-      this.props.updateValues(principalAndInterest, 0);
+      this.updateMonthlyPayment();
+    });
+  };
+  
+  handlePMIChange = name => event => {
+    this.setState({ [name]: event.target.checked }, () => {
+      this.updateMonthlyPayment();
     });
   };
 
@@ -212,7 +237,20 @@ class Inputs extends Component {
           />
         </Row>
 
-        <Row title><Circle color="#ffcb1f" /><Title>{"Include PMI"}</Title></Row>
+        <Row title>
+          <Circle pmi color="#ffcb1f" />
+          <Switch
+            classes={{
+              switchBase: classes.colorSwitchBase,
+              checked: classes.colorChecked,
+              bar: classes.colorBar,
+            }}
+            checked={this.state.pmiChecked}
+            onChange={this.handlePMIChange('pmiChecked')}
+            value="pmiChecked"
+          />
+          <Title>{"Include PMI"}</Title>
+        </Row>
       </Form>
     );
   }

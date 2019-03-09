@@ -4,6 +4,7 @@ import styled from 'styled-components'
 const Header = styled.div`
   display: flex;
   flex-direction: row;
+  padding-left: 140px;
 `;
 
 export default class extends Component {

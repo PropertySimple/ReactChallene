@@ -9,6 +9,7 @@ const PieChart = styled.div`
   flex-grow: 1;
   text-align: center;
   align-items: center;
+  width: 400px;
 `;
 
 const MonthlyPayment = styled.h1`
@@ -23,16 +24,18 @@ const Title = styled.h4`
 
 export default class extends Component {
   render() {
+    const { principalAndInterest, pmi } = this.props;
+
     const values = [
       {
-        angle: 300, 
+        angle: 360 * principalAndInterest / (principalAndInterest + pmi), 
         label: 'P&I', 
-        subLabel: <NumberFormat value={this.props.principalAndInterest} displayType={'text'} thousandSeparator={true} prefix={'$'} renderText={value => value} />,
+        subLabel: <NumberFormat value={principalAndInterest} displayType={'text'} thousandSeparator={true} prefix={'$'} renderText={value => value} />,
         color:'#ff3867'}, 
       {
-        angle: 60, 
+        angle: 360 * pmi / (principalAndInterest + pmi), 
         label: 'PMI', 
-        subLabel: <NumberFormat value={this.props.pmi} displayType={'text'} thousandSeparator={true} prefix={'$'} renderText={value => value} />,
+        subLabel: <NumberFormat value={pmi} displayType={'text'} thousandSeparator={true} prefix={'$'} renderText={value => value} />,
         color:'#ffcb1f'
       }
     ];
@@ -40,18 +43,22 @@ export default class extends Component {
     return (
       <PieChart>
         <MonthlyPayment>
-          <NumberFormat value={this.props.principalAndInterest + this.props.pmi} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+          <NumberFormat value={principalAndInterest + pmi} displayType={'text'} thousandSeparator={true} prefix={'$'} />
         </MonthlyPayment>
         <Title>Monthly Payment</Title>
-        <RadialChart
-          data={values}
-          colorType="literal"
-          showLabels={true}
-          labelsRadiusMultiplier={1.5}
-          innerRadius={70}
-          radius={100}
-          width={360}
-          height={300} />
+        {principalAndInterest 
+          ? 
+            <RadialChart
+              data={values}
+              colorType="literal"
+              showLabels={true}
+              labelsRadiusMultiplier={1.5}
+              innerRadius={70}
+              radius={100}
+              width={360}
+              height={320} /> 
+          : 
+            ''}
       </PieChart>
     );
   }

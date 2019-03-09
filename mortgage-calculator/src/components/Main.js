@@ -12,8 +12,8 @@ export default class extends Component {
     super(props);
 
     this.state = {
-      principalAndInterest: 1262,
-      pmi: 51,
+      principalAndInterest: 0,
+      pmi: 0,
     }
   }
 

@@ -82,12 +82,23 @@ class Inputs extends Component {
       down: 0,
       downPercentage: 0,
       years: 30,
-      interest: 0,
+      interest: 4,
     }
   }
 
   handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
+    this.setState({ [name]: event.target.value }, () => {
+      const { price, down, years, interest } = this.state;
+
+      const P = price - down;
+      const r = interest / 12 / 100;
+      const Y = 12 * years;
+
+      const principalAndInterest = Math.round(P * r * (Math.pow(1 + r, Y)) / (Math.pow(1 + r, Y) - 1));
+
+      this.setState({ principalAndInterest });
+      this.props.updateValues(principalAndInterest, 0);
+    });
   };
 
   render() {

@@ -6,6 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import NumberFormat from 'react-number-format';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Switch from '@material-ui/core/Switch';
+import PMITooltip from './PMITooltip';
 
 const Form = styled.form`
   display: flex;
@@ -280,6 +281,7 @@ class Inputs extends Component {
             value="pmiChecked"
           />
           <Title>{"Include PMI"}</Title>
+          <PMITooltip />
         </Row>
       </Form>
     );

@@ -51,7 +51,7 @@ const styles = theme => ({
   },
 });
 
-function NumberFormatCustom(props) {
+function PriceFormatCustom(props) {
   const { inputRef, onChange, ...other } = props;
 
   return (
@@ -67,6 +67,24 @@ function NumberFormatCustom(props) {
       }}
       thousandSeparator
       prefix="$ "
+    />
+  );
+}
+
+function PercentageFormatCustom(props) {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={values => {
+        onChange({
+          target: {
+            value: values.value,
+          },
+        });
+      }}
     />
   );
 }
@@ -131,7 +149,7 @@ class Inputs extends Component {
             value={price}
             onChange={this.handleChange('price')}
             InputProps={{
-              inputComponent: NumberFormatCustom,
+              inputComponent: PriceFormatCustom,
             }}
             margin="normal"
           />
@@ -144,7 +162,7 @@ class Inputs extends Component {
             value={down}
             onChange={this.handleChange('down')}
             InputProps={{
-              inputComponent: NumberFormatCustom,
+              inputComponent: PriceFormatCustom,
             }}
             margin="normal"
           />
@@ -155,6 +173,7 @@ class Inputs extends Component {
             onChange={this.handleChange('downPercentage')}
             margin="normal"
             InputProps={{
+              inputComponent: PercentageFormatCustom,
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
           />
@@ -187,6 +206,7 @@ class Inputs extends Component {
             onChange={this.handleChange('interest')}
             margin="normal"
             InputProps={{
+              inputComponent: PercentageFormatCustom,
               endAdornment: <InputAdornment position="end">%</InputAdornment>,
             }}
           />

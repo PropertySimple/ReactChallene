@@ -112,9 +112,22 @@ class Inputs extends Component {
       down: 0,
       downPercentage: 0,
       years: 30,
-      interest: 4,
+      interest: 4.125,
       pmiChecked: false,
     }
+
+    this.yearsOptions = [
+      {
+        value: 30,
+        label: '30-year fixed',
+        interest: 4.125,
+      },
+      {
+        value: 15,
+        label: '15-year fixed',
+        interest: 3.523,
+      },
+    ];
   }
 
   updateMonthlyPayment = () => {
@@ -138,6 +151,18 @@ class Inputs extends Component {
     });
   };
   
+  handleYearsChange = name => event => {
+    const yearsOption = this.yearsOptions.find((option) => {
+      return option.value === event.target.value;
+    });
+
+    const interest = yearsOption.interest;
+
+    this.setState({ [name]: event.target.value, interest }, () => {
+      this.updateMonthlyPayment();
+    });
+  };
+
   handlePMIChange = name => event => {
     this.setState({ [name]: event.target.checked }, () => {
       this.updateMonthlyPayment();
@@ -147,17 +172,6 @@ class Inputs extends Component {
   render() {
     const { classes } = this.props;
     const { principalAndInterest, price, down, downPercentage, years, interest } = this.state;
-
-    const yearsOptions = [
-      {
-        value: 30,
-        label: '30-year fixed',
-      },
-      {
-        value: 15,
-        label: '15-year fixed',
-      },
-    ];
 
     return (
       <Form className={classes.container} noValidate autoComplete="off">
@@ -210,7 +224,7 @@ class Inputs extends Component {
             label="Loan Details"
             className={classes.textField}
             value={years}
-            onChange={this.handleChange('years')}
+            onChange={this.handleYearsChange('years')}
             SelectProps={{
               MenuProps: {
                 className: classes.menu,
@@ -218,7 +232,7 @@ class Inputs extends Component {
             }}
             margin="normal"
           >
-            {yearsOptions.map(option => (
+            {this.yearsOptions.map(option => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>

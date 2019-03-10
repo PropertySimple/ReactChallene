@@ -1,122 +1,148 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import { Input } from '../modules/input';
-import { Select } from '../modules/select';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Input } from "../modules/input";
+import { Select } from "../modules/select";
+import styled from "styled-components";
+
+const Container = styled.div`
+  width: calc(100% - 24rem);
+`;
+
+const Row = styled.div`
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  align-center: ${props => (props.alignCenter ? "center" : "initial")};
+`;
+
+const Column = styled.div`
+  width: ${props => props.width}
+  padding : ${props => (props.padding ? props.padding : "")};
+`;
+
+const Color = styled(Column)`
+  height: 1.8rem;
+  border-radius: 50%;
+  background: ${props =>
+    props.color === "pink" ? props.theme.pink : props.theme.yellow};
+`;
 
 export default class MortageCalculatorInputs extends Component {
-
   getPrincipalAndInterest = () => {
     return (
-      <div className="input align-center">
-        <div className="color pink"></div>
-        <div><h3>{'Principal & Interest'}</h3></div>
-        <div><h3>{this.props.pai}</h3></div>
-      </div>
-    )
-  }
+      <Row alignCenter>
+        <Color color={"pink"} width={"1.8rem"} />
+        <Column width={"70%"} padding={"0 2rem"}>
+          <h3>{"Principal & Interest"}</h3>
+        </Column>
+        <Column width={"30%"}>
+          <h3>{this.props.pai}</h3>
+        </Column>
+      </Row>
+    );
+  };
 
   getHomePrice = () => {
     return (
-      <div className="input">
-        <div className="color"></div>
-        <div>
+      <Row>
+        <Column width={"1.8rem"} />
+        <Column width={"70%"} padding={"0 2rem"}>
           <Input
-            name={'home-price'}
-            value={'234'}
-            title={'Home Price'}
-            type={'text'}
+            name={"home-price"}
+            value={"234"}
+            title={"Home Price"}
+            type={"text"}
           />
-        </div>
-        <div></div>
-      </div>
-    )
-  }
+        </Column>
+        <Column width={"30%"} />
+      </Row>
+    );
+  };
 
   getDownPayment = () => {
     return (
-      <div className="input">
-        <div className="color"></div>
-        <div>
+      <Row>
+        <Column width={"1.8rem"} />
+        <Column width={"70%"} padding={"0 2rem"}>
           <Input
-            name={'down-payment'}
-            value={'234'}
-            title={'Down Payment'}
-            type={'text'}
+            name={"down-payment"}
+            value={"234"}
+            title={"Down Payment"}
+            type={"text"}
           />
-        </div>
-        <div>
+        </Column>
+        <Column width={"30%"}>
           <Input
-            name={'down-payment'}
-            value={'15'}
-            customClass={'perc'}
-            type={'text'}
+            name={"down-payment"}
+            value={"15"}
+            customClass={"perc"}
+            type={"text"}
           />
-        </div>
-      </div>
-    )
-  }
+        </Column>
+      </Row>
+    );
+  };
 
   getLoanDetails = () => {
     return (
-      <div className="input">
-        <div className="color"></div>
-        <div>
+      <Row>
+        <Column width={"1.8rem"} />
+        <Column width={"70%"} padding={"0 2rem"}>
           <Select
-            name={'loan-details'}
-            value={'4.007'}
-            title={'Loan Details'}
+            name={"loan-details"}
+            value={"4.007"}
+            title={"Loan Details"}
             options={[
-              {name:'10 Years fixed',value:10},
-              {name:'15 Years fixed',value:15},
-              {name:'20 Years fixed',value:20},
-              {name:'25 Years fixed',value:25},
-              {name:'30 Years fixed',value:30}
+              { name: "10 Years fixed", value: 10 },
+              { name: "15 Years fixed", value: 15 },
+              { name: "20 Years fixed", value: 20 },
+              { name: "25 Years fixed", value: 25 },
+              { name: "30 Years fixed", value: 30 }
             ]}
           />
-        </div>
-        <div>
+        </Column>
+        <Column width={"30%"}>
           <Input
-            name={'down-payment'}
-            value={'4.007'}
-            customClass={'perc'}
-            type={'text'}
+            name={"down-payment"}
+            value={"4.007"}
+            customClass={"perc"}
+            type={"text"}
           />
-        </div>
-      </div>
-    )
-  }
+        </Column>
+      </Row>
+    );
+  };
 
   getPMI = () => {
     return (
-      <div className="input align-center">
-        <div className="color yellow"></div>
-        <div>
+      <Row alignCenter>
+        <Color color="yellow" width={"1.8rem"} />
+        <Column width={"70%"} padding={"0 2rem"}>
           <h3>Include PMI</h3>
-        </div>
-        <div>
-        </div>
-      </div>
-    )
-  }
+        </Column>
+        <Column width={"30%"} />
+      </Row>
+    );
+  };
 
   render = () => {
     return (
-      <div className="inputs">
+      <Container>
         {this.getPrincipalAndInterest()}
         {this.getHomePrice()}
         {this.getDownPayment()}
         {this.getLoanDetails()}
         {this.getPMI()}
-      </div>
-    )
-
-  }
+      </Container>
+    );
+  };
 }
 
 MortageCalculatorInputs.propTypes = {
   pai: PropTypes.string
-}
+};
 
 MortageCalculatorInputs.defaultProps = {
-  pai: '$1,262/mo'
-}
+  pai: "$1,262/mo"
+};

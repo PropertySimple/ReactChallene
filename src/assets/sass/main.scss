@@ -1,0 +1,171 @@
+@import "variables";
+@import "mixins";
+html {
+  font: 300 62.5% $font-base;
+  letter-spacing: -0.5px;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-base;
+  line-height: 1.5;
+  font-size: 1.2rem;
+  text-rendering: optimizeLegibility;
+  background: white;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 900;
+}
+h2 {
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+h3 {
+  font-size: 1.6rem;
+}
+.app {
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 88rem;
+  padding: 1.2rem 2rem;
+  border: 0.1rem solid $light-gray;
+  border-radius: 0.6rem;
+  box-shadow: 0.5rem 0.5rem 1rem 0rem $light-gray;
+  h2 {
+    margin-bottom: 1.2rem;
+  }
+}
+
+.mortage-calculator {
+  display: flex;
+  .chart-holder {
+    width: 20em;
+    margin-right: 4rem;
+  }
+  .inputs {
+    width: calc(100% - 24rem );
+    .input {
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: flex-end;
+      width: 100%;
+      div {
+        &:nth-child(1) {
+          width: 1.8rem;
+        }
+        &:nth-child(2) {
+          width: calc(70%);
+          padding: 0 2rem;
+        }
+        &:nth-child(3) {
+          width: calc(30%);
+        }
+      }
+    }
+  }
+  .color {
+    height: 1.8rem;
+    width: 1.8rem;
+    border-radius: 50%;
+    &.pink {
+      background: $pink;
+    }
+    &.yellow {
+      background: $yellow;
+    }
+  }
+}
+
+.chart-holder {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  .legend {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    span{
+      color: $gray;
+      font-weight: 700;
+      font-size: 1.4rem;
+    }
+  }
+  .chart{
+    display: flex;
+    justify-content: flex-start;
+  }
+}
+
+input,
+select {
+  @include appearance(none);
+  display: block;
+  width: 100%;
+  background-color: transparent;
+  padding: 1rem;
+  transition: all 350ms ease;
+  height: 3rem;
+  background-color: #fff;
+  font-size: 1.2rem;
+  background-color: #fff;
+  border: 1px solid $light-gray;
+  transition: all 350ms ease;
+  border-radius: 0.5rem;
+}
+
+label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  &.perc {
+    &::after {
+      content: "\0025";
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right: 2px;
+      top: 2px;
+      height: 2.6rem;
+      width: 3rem;
+      background: white;
+    }
+  }
+  &.select {
+    &::before{
+      content: "";
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      right: 2px;
+      bottom: 4px;
+      height: 2rem;
+      width: 3rem;
+      background-image: url('../img/down-arrow.svg');
+      background-position: 0px 0px;
+      background-repeat: round;
+    }
+  }
+}
+
+select {
+  padding: 0rem 1rem;
+}
+
+.align-center {
+  align-items: center !important;
+}

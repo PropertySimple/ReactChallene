@@ -33,19 +33,20 @@ const SelectStyle = styled.select`
 `
 
 export const Select = props => {
+
   const fillOptions = options => {
     return options.map(option => {
-      return <option value={option.value}>{option.name}</option>;
+      return (props.value===option.value)?<option selected value={option.value}>{option.name}</option>:<option value={option.value}>{option.name}</option>
     });
   };
+  
   return (
     <Label>
       {props.title}
       <SelectStyle
         name={props.name}
-        value={props.value}
-        onSelect={e => {
-          props.handledFunc(e);
+        onChange={e => {
+          props.handleFunc(e.currentTarget.value);
         }}
       >
         {fillOptions(props.options)}
@@ -56,7 +57,7 @@ export const Select = props => {
 
 Select.propTypes = {
   name: PropTypes.string.isRequired,
-  handledFunc: PropTypes.func,
+  handleFunc: PropTypes.func,
   value: PropTypes.any.isRequired,
   title: PropTypes.string,
   customClass: PropTypes.string,

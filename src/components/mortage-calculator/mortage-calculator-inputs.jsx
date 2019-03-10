@@ -4,6 +4,7 @@ import { Input } from "../modules/input";
 import { Select } from "../modules/select";
 import styled from "styled-components";
 import NumberFormat from "react-number-format";
+import { Checkbox } from "../modules/checkbox";
 
 const Container = styled.div`
   width: calc(100% - 24rem);
@@ -60,7 +61,7 @@ export default class MortageCalculatorInputs extends Component {
             title={"Home Price"}
             type={"text"}
             format={"USD"}
-            handledFunc={this.props.handledHomePrice}
+            handleFunc={this.props.handleHomePrice}
           />
         </Column>
         <Column width={"30%"} />
@@ -79,14 +80,16 @@ export default class MortageCalculatorInputs extends Component {
             title={"Down Payment"}
             type={"text"}
             format={"USD"}
+            handleFunc={this.props.handleDownPayment}
           />
         </Column>
         <Column width={"30%"}>
           <Input
             name={"down-payment"}
-            value={this.props.downPaymentPerc}
-            custom={"perc"}
+            value={this.props.downPaymentRate}
+            custom={"rate"}
             type={"text"}
+            handleFunc={this.props.handleDownPaymentRate}
           />
         </Column>
       </Row>
@@ -102,21 +105,17 @@ export default class MortageCalculatorInputs extends Component {
             name={"loan-details"}
             value={this.props.loanDetails}
             title={"Loan Details"}
-            options={[
-              { name: "10 Years fixed", value: 10 },
-              { name: "15 Years fixed", value: 15 },
-              { name: "20 Years fixed", value: 20 },
-              { name: "25 Years fixed", value: 25 },
-              { name: "30 Years fixed", value: 30 }
-            ]}
+            options={this.props.loanDetailsOptions}
+            handleFunc={this.props.handleLoanDetails}
           />
         </Column>
         <Column width={"30%"}>
           <Input
             name={"down-payment"}
-            value={this.props.loanDetailsPerc}
-            custom={"perc"}
+            value={this.props.loanDetailsRate}
+            custom={"rate"}
             type={"text"}
+            disabled={true}
           />
         </Column>
       </Row>
@@ -128,7 +127,12 @@ export default class MortageCalculatorInputs extends Component {
       <Row alignCenter>
         <Color color="yellow" width={"1.8rem"} />
         <Column width={"70%"} padding={"0 2rem"}>
-          <h3>Include PMI</h3>
+          <Checkbox 
+            name={'pmi'}
+            title={'Include PMI'}
+            handleFunc={this.props.handleIsPMI}
+            value={this.props.isPMI}
+          />
         </Column>
         <Column width={"30%"} />
       </Row>

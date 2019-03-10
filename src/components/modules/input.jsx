@@ -3,30 +3,6 @@ import PropTypes from "prop-types";
 import percIcon from "../../assets/img/percent.svg";
 import NumberFormat from "react-number-format";
 
-// const InputStyle = styled.input`
-//   display: block;
-//   width: 100%;
-//   background-color: transparent;
-//   padding: 1rem;
-//   transition: all 350ms ease;
-//   height: 3rem;
-//   background-color: #fff;
-//   font-size: 1.2rem;
-//   background-color: #fff;
-//   border: 1px solid #999999;
-//   transition: all 350ms ease;
-//   border-radius: 0.5rem;
-//   -webkit-appearance: none;
-//   -moz-appearance: none;
-//   -ms-appearance: none;
-//   appearance: none;
-//   background-image: ${props =>
-//     props.custom ? "url(" + percIcon + ")" : "initial"};
-//   background-position: ${props =>
-//     props.custom ? "calc(100% - 1rem) 7px" : "initial"};
-//   background-repeat: no-repeat;
-//   background-size: 1.2rem;
-// `;
 const InputStyle = {
   display: 'block',
   width: '100%',
@@ -68,10 +44,11 @@ export const Input = props => {
         prefix={props.custom?'':'$'}
         name={props.name}
         style={props.custom?InputStyleCustom:InputStyle}
+        disabled={props.disabled?true:false}
         onValueChange={
           (values) => {
-            const {value} = values;
-            props.handledFunc(value);
+            if(!props.handleFunc) return;
+            props.handleFunc(values.value===""?0:values.value);
           }
         }
       />
@@ -81,8 +58,9 @@ export const Input = props => {
 
 Input.propTypes = {
   name: PropTypes.string.isRequired,
-  handledFunc: PropTypes.func,
+  handleFunc: PropTypes.func,
   value: PropTypes.any.isRequired,
   title: PropTypes.string,
-  custom: PropTypes.string
+  custom: PropTypes.string,
+  disabled: PropTypes.bool
 };

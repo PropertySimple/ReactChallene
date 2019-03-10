@@ -25,6 +25,7 @@
   ],
   "devDependencies": {
     "prop-types": "^15.7.2",
+    "react-number-format": "^4.0.6",
     "styled-components": "^4.1.3"
   }
 }

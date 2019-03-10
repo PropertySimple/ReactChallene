@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Input } from "../modules/input";
 import { Select } from "../modules/select";
 import styled from "styled-components";
+import NumberFormat from "react-number-format";
 
 const Container = styled.div`
   width: calc(100% - 24rem);
@@ -11,9 +12,8 @@ const Container = styled.div`
 const Row = styled.div`
   margin-bottom: 1.2rem;
   display: flex;
-  align-items: flex-end;
   width: 100%;
-  align-center: ${props => (props.alignCenter ? "center" : "initial")};
+  align-items: ${props => (props.alignCenter ? "center" : "flex-end")};
 `;
 
 const Column = styled.div`
@@ -37,7 +37,13 @@ export default class MortageCalculatorInputs extends Component {
           <h3>{"Principal & Interest"}</h3>
         </Column>
         <Column width={"30%"}>
-          <h3>{this.props.pai}</h3>
+          <NumberFormat
+            value={this.props.pai}
+            displayType={"text"}
+            thousandSeparator={true}
+            prefix={"$"}
+            renderText={value => <h3>{value}</h3>}
+          />
         </Column>
       </Row>
     );
@@ -50,9 +56,11 @@ export default class MortageCalculatorInputs extends Component {
         <Column width={"70%"} padding={"0 2rem"}>
           <Input
             name={"home-price"}
-            value={"234"}
+            value={this.props.homePrice}
             title={"Home Price"}
             type={"text"}
+            format={"USD"}
+            handledFunc={this.props.handledHomePrice}
           />
         </Column>
         <Column width={"30%"} />
@@ -67,16 +75,17 @@ export default class MortageCalculatorInputs extends Component {
         <Column width={"70%"} padding={"0 2rem"}>
           <Input
             name={"down-payment"}
-            value={"234"}
+            value={this.props.downPayment}
             title={"Down Payment"}
             type={"text"}
+            format={"USD"}
           />
         </Column>
         <Column width={"30%"}>
           <Input
             name={"down-payment"}
-            value={"15"}
-            customClass={"perc"}
+            value={this.props.downPaymentPerc}
+            custom={"perc"}
             type={"text"}
           />
         </Column>
@@ -91,7 +100,7 @@ export default class MortageCalculatorInputs extends Component {
         <Column width={"70%"} padding={"0 2rem"}>
           <Select
             name={"loan-details"}
-            value={"4.007"}
+            value={this.props.loanDetails}
             title={"Loan Details"}
             options={[
               { name: "10 Years fixed", value: 10 },
@@ -105,8 +114,8 @@ export default class MortageCalculatorInputs extends Component {
         <Column width={"30%"}>
           <Input
             name={"down-payment"}
-            value={"4.007"}
-            customClass={"perc"}
+            value={this.props.loanDetailsPerc}
+            custom={"perc"}
             type={"text"}
           />
         </Column>

@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import NumberFormat from "react-number-format";
 
 const ChartHolder = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: 20rem;
+  width: 23rem;
   margin-right: 4rem;
 `;
 
@@ -17,7 +18,7 @@ const Legend = styled.div`
 `;
 
 const Span = styled.span`
-  color: ${props => props.theme.gray};
+  color: ${props => props.theme.lightGray};
   font-weight: 700;
   font-size: 1.4rem;
 `;
@@ -27,7 +28,13 @@ export default class HolderChart extends Component {
     return (
       <ChartHolder>
         <Legend>
-          <h1>{this.props.headerValue}</h1>
+          <NumberFormat
+            value={this.props.headerValue}
+            displayType={"text"}
+            thousandSeparator={true}
+            prefix={"$"}
+            renderText={value => <h1>{value}</h1>}
+          />
           <Span>{this.props.headerLegend}</Span>
         </Legend>
         {this.props.children}

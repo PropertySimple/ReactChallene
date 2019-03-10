@@ -23,15 +23,42 @@ const Container = styled.div`
 `
 
 export default class MortageCalculator extends Component {
-  render() {
+  state = {
+    pai:0,
+    homePrice:0,
+    downPayment: 0,
+    downPaymentPerc: 0,
+    loadDetails: 0,
+    loanDetailsPerc: 0,
+    isPMI: false,
+    monthlyPayment: 0,
+    PMI: 0
+  }
+
+  handledHomePrice = (value) => {
+    this.setState({homePrice:Number.parseFloat(value)});
+  }
+
+  // handledDownPayment = (value) => {
+  //   this.setState({downPayment:Number.parseFloat(value)});
+  // }
+
+  // handled = (e) => {
+  //   this.setState({homePrice:Number.parseFloat(e)});
+  // }
+
+  render = () => {
     return (
       <Wrapper>
         <H2>{this.props.title}</H2>
         <Container>
-          <HolderChart headerValue={'$1,313'} headerLegend={'Monthly Payment'}>
+          <HolderChart headerValue={this.state.pai} headerLegend={'Monthly Payment'}>
             <PieChart></PieChart>
           </HolderChart>
-          <MortageCalculatorInputs />
+          <MortageCalculatorInputs 
+          {...this.state}
+          handledHomePrice={this.handledHomePrice}
+          />
         </Container>
       </Wrapper>
     )

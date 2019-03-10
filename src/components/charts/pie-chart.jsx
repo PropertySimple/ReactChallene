@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "../../../node_modules/react-vis/dist/style.css";
-import { RadialChart, XYPlot, ArcSeries, LabelSeries } from "react-vis";
+import { RadialChart} from "react-vis";
 import styled from "styled-components";
 
 const Chart = styled.div`
@@ -10,6 +10,11 @@ const Chart = styled.div`
 `;
 
 export default class PieChart extends Component {
+
+  shouldComponentUpdate = (prevProps) => {
+    return prevProps.data !== this.props.data;
+  }
+
   render() {
     // debugger;
     return (
@@ -17,14 +22,14 @@ export default class PieChart extends Component {
         <RadialChart
           data={this.props.data}
           width={230}
-          height={200}
+          height={230}
           innerRadius={50}
           radius={80}
           showLabels
           colorType="category"
           colorDomain={[0, 1]}
           colorRange={["#ff3867", "#ffcb1f"]}
-          labelsRadiusMultiplier={1.3}
+          labelsRadiusMultiplier={this.props.data.labelsRadiusMultiplier}
           className={"sdsdfsdf"}
           animation
         />
@@ -34,5 +39,5 @@ export default class PieChart extends Component {
 }
 
 PieChart.propTypes = {
-  header: PropTypes.any
+  data: PropTypes.any.isRequired
 };

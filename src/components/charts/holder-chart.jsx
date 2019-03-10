@@ -23,7 +23,19 @@ const Span = styled.span`
   font-size: 1.4rem;
 `;
 
+const H1 = styled.h1`
+  margin-bottom: -0.8rem;
+`;
+
 export default class HolderChart extends Component {
+  shouldComponentUpdate = prevProps => {
+    return (
+      prevProps.headerValue !== this.props.headerValue ||
+      prevProps.headerLeyend !== this.props.headerLeyend ||
+      prevProps.children !== this.props.children
+    );
+  };
+
   render() {
     return (
       <ChartHolder>
@@ -33,7 +45,7 @@ export default class HolderChart extends Component {
             displayType={"text"}
             thousandSeparator={true}
             prefix={"$"}
-            renderText={value => <h1>{value}</h1>}
+            renderText={value => <H1>{value}</H1>}
           />
           <Span>{this.props.headerLegend}</Span>
         </Legend>
@@ -45,5 +57,6 @@ export default class HolderChart extends Component {
 
 HolderChart.propTypes = {
   headerValue: PropTypes.any,
-  headerLeyend: PropTypes.string
+  headerLeyend: PropTypes.string,
+  children: PropTypes.any.isRequired
 };

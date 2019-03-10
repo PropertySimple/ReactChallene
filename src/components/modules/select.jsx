@@ -1,13 +1,13 @@
-import React from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import styled from 'styled-components';
-import arrow from '../../assets/img/down-arrow.svg';
+import styled from "styled-components";
+import arrow from "../../assets/img/down-arrow.svg";
 
 const Label = styled.label`
   position: relative;
   display: flex;
   flex-direction: column;
-`
+`;
 
 const SelectStyle = styled.select`
   display: block;
@@ -30,36 +30,51 @@ const SelectStyle = styled.select`
   -moz-appearance: none;
   -ms-appearance: none;
   appearance: none;
-`
+`;
 
-export const Select = props => {
+export class Select extends Component {
+  shouldComponentUpdate = prevProps => {
+    return (
+      prevProps.name !== this.props.name ||
+      prevProps.handleFunc !== this.props.handleFunc ||
+      prevProps.value !== this.props.value ||
+      prevProps.title !== this.props.title ||
+      prevProps.options !== this.props.options
+    );
+  };
 
-  const fillOptions = options => {
+  fillOptions = options => {
     return options.map(option => {
-      return (props.value===option.value)?<option selected value={option.value}>{option.name}</option>:<option value={option.value}>{option.name}</option>
+      return this.props.value === option.value ? (
+        <option selected value={option.value}>
+          {option.name}
+        </option>
+      ) : (
+        <option value={option.value}>{option.name}</option>
+      );
     });
   };
-  
-  return (
-    <Label>
-      {props.title}
-      <SelectStyle
-        name={props.name}
-        onChange={e => {
-          props.handleFunc(e.currentTarget.value);
-        }}
-      >
-        {fillOptions(props.options)}
-      </SelectStyle>
-    </Label>
-  );
-};
+  render = () => {
+    return (
+      <Label>
+        {this.props.title}
+        <SelectStyle
+          name={this.props.name}
+          onChange={e => {
+            this.props.handleFunc(e.currentTarget.value);
+          }}
+        >
+          {this.fillOptions(this.props.options)}
+        </SelectStyle>
+      </Label>
+    );
+  };
+}
 
 Select.propTypes = {
   name: PropTypes.string.isRequired,
   handleFunc: PropTypes.func,
   value: PropTypes.any.isRequired,
   title: PropTypes.string,
-  customClass: PropTypes.string,
   options: PropTypes.array.isRequired
 };

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Input } from "../modules/input";
+import Input from "../modules/input";
 import { Select } from "../modules/select";
 import styled from "styled-components";
 import NumberFormat from "react-number-format";
@@ -30,6 +30,24 @@ const Color = styled(Column)`
 `;
 
 export default class MortageCalculatorInputs extends Component {
+  shouldComponentUpdate = prevProps => {
+    return (
+      prevProps.pai !== this.props.pai ||
+      prevProps.homePrice !== this.props.homePrice ||
+      prevProps.handleHomePrice !== this.props.handleHomePrice ||
+      prevProps.downPayment !== this.props.downPayment ||
+      prevProps.handleDownPayment !== this.props.handleDownPayment ||
+      prevProps.downPaymentRate !== this.props.downPaymentRate ||
+      prevProps.handleDownPaymentRate !== this.props.handleDownPaymentRate ||
+      prevProps.loanDetails !== this.props.loanDetails ||
+      prevProps.loanDetailsOptions !== this.props.loanDetailsOptions ||
+      prevProps.handleLoanDetails !== this.props.handleLoanDetails ||
+      prevProps.loanDetailsRate !== this.props.loanDetailsRate ||
+      prevProps.isPMI !== this.props.isPMI ||
+      prevProps.handleIsPMI !== this.props.handleIsPMI
+    );
+  };
+
   getPrincipalAndInterest = () => {
     return (
       <Row alignCenter>
@@ -43,6 +61,7 @@ export default class MortageCalculatorInputs extends Component {
             displayType={"text"}
             thousandSeparator={true}
             prefix={"$"}
+            suffix={"/mo"}
             renderText={value => <h3>{value}</h3>}
           />
         </Column>
@@ -60,7 +79,6 @@ export default class MortageCalculatorInputs extends Component {
             value={this.props.homePrice}
             title={"Home Price"}
             type={"text"}
-            format={"USD"}
             handleFunc={this.props.handleHomePrice}
           />
         </Column>
@@ -127,9 +145,9 @@ export default class MortageCalculatorInputs extends Component {
       <Row alignCenter>
         <Color color="yellow" width={"1.8rem"} />
         <Column width={"70%"} padding={"0 2rem"}>
-          <Checkbox 
-            name={'pmi'}
-            title={'Include PMI'}
+          <Checkbox
+            name={"pmi"}
+            title={"Include PMI"}
             handleFunc={this.props.handleIsPMI}
             value={this.props.isPMI}
           />
@@ -153,9 +171,17 @@ export default class MortageCalculatorInputs extends Component {
 }
 
 MortageCalculatorInputs.propTypes = {
-  pai: PropTypes.string
-};
-
-MortageCalculatorInputs.defaultProps = {
-  pai: "$1,262/mo"
+  pai: PropTypes.number.isRequired,
+  homePrice: PropTypes.number.isRequired,
+  handleHomePrice: PropTypes.func.isRequired,
+  downPayment: PropTypes.number.isRequired,
+  handleDownPayment: PropTypes.func.isRequired,
+  downPaymentRate: PropTypes.number.isRequired,
+  handleDownPaymentRate: PropTypes.func.isRequired,
+  loanDetails: PropTypes.number.isRequired,
+  loanDetailsOptions: PropTypes.array.isRequired,
+  handleLoanDetails: PropTypes.func.isRequired,
+  loanDetailsRate: PropTypes.number.isRequired,
+  isPMI: PropTypes.bool.isRequired,
+  handleIsPMI: PropTypes.func.isRequired
 };

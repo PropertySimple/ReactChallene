@@ -23,6 +23,7 @@ const Container = styled.div`
 `;
 
 export default class MortageCalculator extends Component {
+  
   state = {
     pai: 0,
     homePrice: 100000,
@@ -39,6 +40,11 @@ export default class MortageCalculator extends Component {
     monthlyPayment: 0,
     PMI: 0
   };
+
+  componentWillMount = () => {
+    this.calcDownPaymentRate();
+    this.calcMonthPayment();
+  }
 
   //HANDLE
   handleHomePrice = value => {
@@ -118,14 +124,17 @@ export default class MortageCalculator extends Component {
   createDataChart = () => {
     const { isPMI, PMI, pai} = this.state,
       dataOut = [];
+
+    dataOut.labelsRadiusMultiplier = 1.3;
     if (isPMI) {
       dataOut.push({
         angle: 1,
-        label: `PMI ${PMI}` 
+        label: `PMI $${PMI.toLocaleString('en-US')}` 
       });
+      dataOut.labelsRadiusMultiplier = 1.5;
     }
     dataOut.push({
-      angle: 4, label: `P&I ${pai}` 
+      angle: 4, label: `P&I $${pai.toLocaleString('en-US')}` 
     })
     return dataOut;
   };

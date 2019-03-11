@@ -49,7 +49,6 @@ export default class Input extends Component {
     );
   }
   render() {
-    debugger
     return (
       <Label>
         {this.props.title}

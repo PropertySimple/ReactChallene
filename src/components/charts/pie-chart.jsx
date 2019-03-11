@@ -30,8 +30,10 @@ export default class PieChart extends Component {
           colorDomain={[0, 1]}
           colorRange={["#ff3867", "#ffcb1f"]}
           labelsRadiusMultiplier={this.props.data.labelsRadiusMultiplier}
-          className={"sdsdfsdf"}
           animation
+          labelsStyle={{
+            fontWeight: '700'
+          }}
         />
       </Chart>
     );

@@ -5,6 +5,7 @@ import { Select } from "../modules/select";
 import styled from "styled-components";
 import NumberFormat from "react-number-format";
 import { Checkbox } from "../modules/checkbox";
+import { Tooltip } from "../modules/tooltip";
 
 const Container = styled.div`
   width: calc(100% - 24rem);
@@ -19,7 +20,8 @@ const Row = styled.div`
 
 const Column = styled.div`
   width: ${props => props.width}
-  padding : ${props => (props.padding ? props.padding : "")};
+  padding: ${props => (props.padding ? props.padding : "")};
+  display: ${props => props.display? props.display : "initial"};
 `;
 
 const Color = styled(Column)`
@@ -144,13 +146,14 @@ export default class MortageCalculatorInputs extends Component {
     return (
       <Row alignCenter>
         <Color color="yellow" width={"1.8rem"} />
-        <Column width={"70%"} padding={"0 2rem"}>
+        <Column width={"70%"} padding={"0 2rem"} display={'flex'}>
           <Checkbox
             name={"pmi"}
             title={"Include PMI"}
             handleFunc={this.props.handleIsPMI}
             value={this.props.isPMI}
           />
+          <Tooltip description={'PMI is a....'}/>
         </Column>
         <Column width={"30%"} />
       </Row>

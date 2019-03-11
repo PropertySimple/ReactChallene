@@ -45,12 +45,10 @@ export class Select extends Component {
 
   fillOptions = options => {
     return options.map(option => {
-      return this.props.value === option.value ? (
-        <option selected value={option.value}>
+      return (
+        <option key={option.value} value={option.value}>
           {option.name}
         </option>
-      ) : (
-        <option value={option.value}>{option.name}</option>
       );
     });
   };
@@ -63,6 +61,7 @@ export class Select extends Component {
           onChange={e => {
             this.props.handleFunc(e.currentTarget.value);
           }}
+          value={this.props.value}
         >
           {this.fillOptions(this.props.options)}
         </SelectStyle>

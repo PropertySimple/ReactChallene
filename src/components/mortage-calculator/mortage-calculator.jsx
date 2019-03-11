@@ -23,7 +23,7 @@ const Container = styled.div`
 `;
 
 export default class MortageCalculator extends Component {
-  
+
   state = {
     pai: 0,
     homePrice: 100000,
@@ -46,7 +46,7 @@ export default class MortageCalculator extends Component {
     this.calcMonthPayment();
   }
 
-  //HANDLE
+  //HANDLERS
   handleHomePrice = value => {
     this.setState({ homePrice: Number.parseFloat(value) }, () => {
       this.calcDownPaymentRate();
@@ -86,7 +86,8 @@ export default class MortageCalculator extends Component {
       }
     );
   };
-  //CALCULATE
+
+  //DATA
   calcDownPaymentRate = () => {
     const { homePrice, downPayment } = this.state,
       downPaymentRate = (downPayment * 100) / homePrice;
@@ -129,7 +130,10 @@ export default class MortageCalculator extends Component {
     if (isPMI) {
       dataOut.push({
         angle: 1,
-        label: `PMI $${PMI.toLocaleString('en-US')}` 
+        label: `PMI $${PMI.toLocaleString('en-US')}`,
+        labelsStyle: {
+          fontSize: '20px'
+        }
       });
       dataOut.labelsRadiusMultiplier = 1.5;
     }

@@ -1,0 +1,35 @@
+.App {
+  /*text-align: center;*/
+  display: flex;
+}
+.titulo{
+  color:#424143;
+  font-size: 22px;
+  font-weight: bold;
+}
+.pagoMensual{
+  color:#ff3867;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+
+.boton{
+  background-color: #ff3867;
+}
+.boton:hover{
+  background-color: #424143;
+}
+
+.selector{
+  color: #ffcb1f;
+}
+
+[type="checkbox"].filled-in:checked+span:not(.lever):after {
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffcb1f;
+    background-color: #ffcb1f;
+    z-index: 0;
+}
